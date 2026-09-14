@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Dani Stack Wear | Products{% endblock %}
+
+{% block content %}
+
+{% for product in products %}
+
+  {{ product.name }}
+  {{ product.price }}
+  <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="Men's shirt">
+  {{ product.description }}
+  {{ product.category }}
+  {{ product.id }}
+
+  <select data-product-id = "{{ product.id }}">
+
+    {% for size in product.sizes %}
+
+      <option>{{ size }}</option>
+
+    {% endfor %}
+    
+  </select>
+
+  <button
+    data-product-id="{{ product.id }}"
+    data-product-name="{{ product.name }}"
+    data-product-price="{{ product.price }}"
+    class="add-to-cart">
+    Add to Cart
+  </button>
+
+
+{% endfor %} I 
+
+
+
+{% endblock %}
