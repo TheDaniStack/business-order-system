@@ -14,3 +14,7 @@ def products_list():
     "products.html",
     products=products
   )
+
+@app.route("/cart")
+def cart():
+  return render_template("cart.html")
