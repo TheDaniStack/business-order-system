@@ -1,19 +1,35 @@
+const currentYear = new Date().getFullYear();
+
+document.getElementById("date").textContent = currentYear;
+
+
 const addToCart = document.querySelectorAll(".add-to-cart")
 const cart = JSON.parse(localStorage.getItem("cart")) || []
 
 const cartContainer = document.querySelector("#cart-container")
 
+function formatPrice(price) {
+  return Number(price).toLocaleString("en-NG")
+}
+
 if (cartContainer) {
 
   let cartTotal = 0
-  
-  const cartTotalDisplay = document.createElement("span")
 
-  //Whatsapp order button
+  const cartTotalDisplay = document.createElement("span")
+  cartTotalDisplay.className = "cart-total"
+
+  // WhatsApp order button
   const whatsAppBtn = document.createElement("button")
-  whatsAppBtn.textContent = "Order via WhatsApp"
-  
-  //Whatsapp event
+  whatsAppBtn.className = "whatsapp-btn"
+
+  const whatsAppIcon = document.createElement("i")
+  whatsAppIcon.className = "bi bi-whatsapp"
+
+  whatsAppBtn.appendChild(whatsAppIcon)
+  whatsAppBtn.append(" Order via WhatsApp")
+
+  // WhatsApp event
   whatsAppBtn.addEventListener("click", () => {
 
     let orderMessage = "Hello, I'd like to place an order.\n\n"
@@ -21,15 +37,15 @@ if (cartContainer) {
     cart.forEach(item => {
       const productPriceToNumber = Number(item.productPrice)
       const subTotal = productPriceToNumber * item.quantity
-  
+
       orderMessage += `${item.productName}\n`
       orderMessage += `Size: ${item.size}\n`
       orderMessage += `Quantity: ${item.quantity}\n`
-      orderMessage += `Subtotal: ₦${subTotal}\n\n`
+      orderMessage += `Subtotal: ₦${formatPrice(subTotal)}\n\n`
     })
-  
-    orderMessage += `Total: ₦${cartTotal}`
-  
+
+    orderMessage += `Total: ₦${formatPrice(cartTotal)}`
+
     const encodedMessage = encodeURIComponent(orderMessage)
 
     const whatsAppUrl = `https://wa.me/2348149149027?text=${encodedMessage}`
@@ -37,127 +53,184 @@ if (cartContainer) {
     window.open(whatsAppUrl, "_blank")
   })
 
-  //Empty message 
-  if (cart.length === 0){
+  // Empty message
+  if (cart.length === 0) {
     const emptyMsg = document.createElement("p")
+    emptyMsg.className = "empty-cart"
 
     emptyMsg.textContent = "Your cart is empty"
 
     cartContainer.appendChild(emptyMsg)
   }
 
-  //total function
-  function updateCartFunction(){
+  // Total function
+  function updateCartFunction() {
     cartTotal = 0
 
     cart.forEach(item => {
-      
-      // subtotal for price and display
+
       const productPriceToNumber = Number(item.productPrice)
       const subTotal = productPriceToNumber * item.quantity
 
       cartTotal += subTotal
-      
     })
 
-    cartTotalDisplay.textContent = "Total: ₦" + cartTotal
+    cartTotalDisplay.textContent =
+      "Total: ₦" + formatPrice(cartTotal)
   }
-  
+
   cart.forEach(item => {
+
     const cartItemElement = document.createElement("div")
+    cartItemElement.className = "cart-item"
 
-    const decreaseBtn = document.createElement("button")
-    const quantityDisplay = document.createElement("span")
-    const increaseBtn = document.createElement("button")
+    // Product information
     const productInfo = document.createElement("div")
+    productInfo.className = "cart-product-info"
+
+    const productNameDisplay = document.createElement("h2")
+    productNameDisplay.className = "cart-product-name"
+    productNameDisplay.textContent = item.productName
+
+    const productPriceDisplay = document.createElement("span")
+    productPriceDisplay.className = "cart-product-price"
+    productPriceDisplay.textContent =
+      "₦" + formatPrice(item.productPrice)
+
+    const productSizeDisplay = document.createElement("span")
+    productSizeDisplay.className = "cart-product-size"
+    productSizeDisplay.textContent = "Size: " + item.size
+
+    const quantityLabel = document.createElement("span")
+    quantityLabel.className = "cart-quantity-label"
+    quantityLabel.textContent = "Quantity: " + item.quantity
+
+    productInfo.appendChild(productNameDisplay)
+    productInfo.appendChild(productPriceDisplay)
+    productInfo.appendChild(productSizeDisplay)
+    productInfo.appendChild(quantityLabel)
+
+    // Subtotal
     const subTotalDisplay = document.createElement("span")
-    
-    //remove btn
-    const removeBtn = document.createElement("button")
-
-    decreaseBtn.textContent = "-"
-    quantityDisplay.textContent = item.quantity
-    increaseBtn.textContent = "+"
-    productInfo.textContent = `${item.productName} - ₦${item.productPrice} - Size: ${item.size} - Quantity: ${item.quantity}`
-    
-    //removeBtn name
-    removeBtn.textContent = "Remove"
-
-    cartItemElement.appendChild(productInfo)
-    cartItemElement.appendChild(decreaseBtn)
-    cartItemElement.appendChild(quantityDisplay)
-    cartItemElement.appendChild(increaseBtn)
-    cartItemElement.appendChild(subTotalDisplay)
-    
-    //removeBtn append
-    cartItemElement.appendChild(removeBtn)
-
-    cartContainer.appendChild(cartItemElement)
-
-    //removeBtn event
-    removeBtn.addEventListener("click", () => {
-      const newCart = cart.filter(cartItem => cartItem !== item)
-    
-      cart.length = 0
-      cart.push(...newCart)
-    
-      cartItemElement.remove()
-    
-      if (cart.length === 0) {
-        const emptyMsg = document.createElement("p")
-    
-        emptyMsg.textContent = "Your cart is empty"
-    
-        cartTotalDisplay.remove()
-    
-        cartContainer.appendChild(emptyMsg)
-
-        whatsAppBtn.remove()
-      }
-    
-      updateCartFunction()
-    
-      localStorage.setItem("cart", JSON.stringify(cart))
-    })
+    subTotalDisplay.className = "cart-subtotal"
 
     const productPriceToNumber = Number(item.productPrice)
     const subTotal = productPriceToNumber * item.quantity
 
-    subTotalDisplay.textContent = "Subtotal: ₦" + subTotal
+    subTotalDisplay.textContent =
+      "Subtotal: ₦" + formatPrice(subTotal)
 
-    //Increase button event
-    increaseBtn.addEventListener("click", () => {
-      item.quantity += 1
+    // Quantity buttons
+    const decreaseBtn = document.createElement("button")
+    decreaseBtn.className = "quantity-btn decrease-btn"
+    decreaseBtn.textContent = "-"
 
-      quantityDisplay.textContent = item.quantity
+    const quantityDisplay = document.createElement("span")
+    quantityDisplay.className = "quantity-display"
+    quantityDisplay.textContent = item.quantity
 
-      productInfo.textContent = `${item.productName} - ₦${item.productPrice} - Size: ${item.size} - Quantity: ${item.quantity}`
+    const increaseBtn = document.createElement("button")
+    increaseBtn.className = "quantity-btn increase-btn"
+    increaseBtn.textContent = "+"
 
-      const productPriceToNumberForIncreaseBtn = Number(item.productPrice)
-      const subTotalForIncreaseBtn = productPriceToNumberForIncreaseBtn * item.quantity
+    // Quantity controls
+    const quantityControls = document.createElement("div")
+    quantityControls.className = "quantity-controls"
 
-      subTotalDisplay.textContent = "Subtotal: ₦" + subTotalForIncreaseBtn
+    quantityControls.appendChild(decreaseBtn)
+    quantityControls.appendChild(quantityDisplay)
+    quantityControls.appendChild(increaseBtn)
+
+    // Remove button
+    const removeBtn = document.createElement("button")
+    removeBtn.className = "remove-btn"
+    removeBtn.textContent = "Remove"
+
+    // Cart controls
+    const cartControls = document.createElement("div")
+    cartControls.className = "cart-controls"
+
+    cartControls.appendChild(quantityControls)
+    cartControls.appendChild(removeBtn)
+
+    // Build cart item
+    cartItemElement.appendChild(productInfo)
+    cartItemElement.appendChild(subTotalDisplay)
+    cartItemElement.appendChild(cartControls)
+
+    cartContainer.appendChild(cartItemElement)
+
+    // Remove event
+    removeBtn.addEventListener("click", () => {
+
+      const newCart = cart.filter(cartItem => cartItem !== item)
+
+      cart.length = 0
+      cart.push(...newCart)
+
+      cartItemElement.remove()
+
+      if (cart.length === 0) {
+
+        const emptyMsg = document.createElement("p")
+        emptyMsg.className = "empty-cart"
+        emptyMsg.textContent = "Your cart is empty"
+
+        cartTotalDisplay.remove()
+
+        cartContainer.appendChild(emptyMsg)
+
+        whatsAppBtn.remove()
+      }
 
       updateCartFunction()
 
       localStorage.setItem("cart", JSON.stringify(cart))
     })
 
-    //Decrease button event
+    // Increase button event
+    increaseBtn.addEventListener("click", () => {
+
+      item.quantity += 1
+
+      quantityDisplay.textContent = item.quantity
+      quantityLabel.textContent = "Quantity: " + item.quantity
+
+      const productPriceToNumberForIncreaseBtn =
+        Number(item.productPrice)
+
+      const subTotalForIncreaseBtn =
+        productPriceToNumberForIncreaseBtn * item.quantity
+
+      subTotalDisplay.textContent =
+        "Subtotal: ₦" + formatPrice(subTotalForIncreaseBtn)
+
+      updateCartFunction()
+
+      localStorage.setItem("cart", JSON.stringify(cart))
+    })
+
+    // Decrease button event
     decreaseBtn.addEventListener("click", () => {
+
       if (item.quantity > 1) {
+
         item.quantity -= 1
 
         quantityDisplay.textContent = item.quantity
+        quantityLabel.textContent = "Quantity: " + item.quantity
 
-        productInfo.textContent = `${item.productName} - ₦${item.productPrice} - Size: ${item.size} - Quantity: ${item.quantity}`
-        
-        const productPriceToNumberForDecreaseBtn = Number(item.productPrice)
-        const subTotalForDecreaseBtn = productPriceToNumberForDecreaseBtn * item.quantity
+        const productPriceToNumberForDecreaseBtn =
+          Number(item.productPrice)
 
-        subTotalDisplay.textContent = "Subtotal: ₦" + subTotalForDecreaseBtn
-        
+        const subTotalForDecreaseBtn =
+          productPriceToNumberForDecreaseBtn * item.quantity
+
+        subTotalDisplay.textContent =
+          "Subtotal: ₦" + formatPrice(subTotalForDecreaseBtn)
+
       } else {
+
         const newCart = cart.filter(cartItem => cartItem !== item)
 
         cart.length = 0
@@ -165,10 +238,10 @@ if (cartContainer) {
 
         cartItemElement.remove()
 
-        //Empty message 
-        if (cart.length === 0){
-          const emptyMsg = document.createElement("p")
+        if (cart.length === 0) {
 
+          const emptyMsg = document.createElement("p")
+          emptyMsg.className = "empty-cart"
           emptyMsg.textContent = "Your cart is empty"
 
           cartTotalDisplay.remove()
@@ -189,12 +262,12 @@ if (cartContainer) {
 
   if (cart.length > 0) {
     cartContainer.appendChild(cartTotalDisplay)
-
     cartContainer.appendChild(whatsAppBtn)
   }
 }
 
 addToCart.forEach(button => {
+
   button.addEventListener("click", () => {
 
     const cartFeedback = button.nextElementSibling
@@ -223,7 +296,8 @@ addToCart.forEach(button => {
     }
 
     const existingItem = cart.find(item =>
-      item.productId === productId && item.size === selectedSize
+      item.productId === productId &&
+      item.size === selectedSize
     )
 
     if (existingItem) {

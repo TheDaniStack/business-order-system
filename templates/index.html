@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Dani Stack Wear | Home{% endblock %}
+{% block title %}Dani & CO | Home{% endblock %}
 
 {% block content %}
 
@@ -14,4 +14,84 @@
   
 </section>
 
+<section class="featured-products">
+  
+  <h2 class="featured-products-title">Featured Styles</h2>
+
+  <p class="featured-products-text">Explore some of our favorite pieces, designed for everyday style and comfort.</p>
+
+  <div class="featured-products-container">
+
+    {% for product in products[:3] %}
+
+    <div class="featured-product-card">
+
+      <img 
+        src="{{ url_for('static', filename='images/' + product.image) }}"
+        alt="{{ product.name }}"
+        class="featured-product-image"
+      >
+      <h3 class="featured-product-name">{{ product.name }}</h3>
+
+      <p class="featured-product-price">₦{{ "{:,}".format(product.price) }}</p>
+
+      <p class="featured-product-description">{{ product.description }}</p>
+
+      <a href="{{ url_for('products_list') }}" class="featured-product-link">View Product</a>
+
+    </div>
+
+  {% endfor %}
+    
+  </div>
+  
+</section>
+
+<section class="why-dani-co">
+  <h2 class="why-dani-co-title">Why Dani & CO?</h2>
+  
+  <p class="why-dani-co-text">Quality styles, versatile pieces, and a simple way to order what you love.</p>
+  
+  <div class="why-dani-co-container">
+    <!--first-->
+    <div class="why-dani-co-item">
+
+      <h3 class="why-dani-co-item-title">Quality First</h3>
+
+      <p class="why-dani-co-item-text">We focus on comfortable, well-made pieces you can enjoy every day.</p>
+      
+    </div>
+    <!--second-->
+    <div class="why-dani-co-item">
+
+      <h3 class="why-dani-co-item-title">Versatile Styles</h3>
+
+      <p class="why-dani-co-item-text">Simple styles that work for different looks, occasions, and lifestyles.</p>
+      
+    </div>
+    <!--third-->
+    <div class="why-dani-co-item">
+
+      <h3 class="why-dani-co-item-title">Easy Ordering</h3>
+
+      <p class="why-dani-co-item-text">Choose your pieces and place your order directly through WhatsApp.</p>
+      
+    </div>
+    
+    
+  </div>
+  
+</section>
+
+<!--CTA-->
+<section class="home-cta">
+
+  <h2 class="home-cta-title">Ready to Find Your Style?</h2>
+
+  <p class="home-cta-text">Explore our collection and discover pieces made for your everyday look.</p>
+
+  <a class="home-cta-link" href="{{ url_for('products_list') }}">Shop Now</a>
+  
+</section>
+  
 {% endblock %}

@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}Dani Stack Wear{% endblock %}</title>
+  <title>{% block title %}Dani & CO{% endblock %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
   
   
@@ -22,15 +23,21 @@
   {% endblock %}
 
   <footer>
-  <p>
-    Dani Stack Wear is a fictional e-commerce project created for
-    demonstration and portfolio purposes.
-  </p>
+    <p>
+      Dani & CO is a fictional e-commerce project created for
+      demonstration and portfolio purposes.
+    </p>
+  
+    <p>
+      This website is not affiliated with a real business and does not
+      process real orders or payments.
+    </p>
 
-  <p>
-    This website is not affiliated with a real business and does not
-    process real orders or payments.
-  </p>
+    <p class="footer-copyright">&copy; <span id="date"></span> Dani & CO. All rightd reserved</p>
+
+
+    <p class="footer-portfolio"><a href="https://thedanistack.github.io/The-Dani-Stack/">Built by Dani Stack</a></p>
+    
   </footer>
 
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
