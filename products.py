@@ -34,7 +34,7 @@ mens_sneakers = {
   "price": 35000,
   "description": "Simple everyday sneakers designed to pair easily with casual outfits while keeping you comfortable throughout the day.",
   "category": "Men",
-  "sizes": ["S", "M", "L", "XL"],
+  "sizes": ["40", "41", "42", "43", "44", "45"],
   "image": "classic-casual-sneakers.jpg"
 }
 
@@ -74,7 +74,7 @@ womens_sneakers = {
   "price": 35000,
   "description": "Comfortable casual sneakers designed for everyday outfits and easy movement.",
   "category": "Women",
-  "sizes": ["S", "M", "L", "XL"],
+  "sizes": ["36", "37", "38", "39", "40", "41"],
   "image": "womens-casual-sneakers.jpg"
 }
 

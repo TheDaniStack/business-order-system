@@ -146,6 +146,7 @@ header {
   margin-top: 8px;
 }
 
+
 /* =========================
    FEATURED PRODUCTS
 ========================= */
@@ -213,6 +214,7 @@ header {
   border-radius: 6px;
   text-decoration: none;
 }
+
 
 /* =========================
    WHY DANI & CO
@@ -494,31 +496,36 @@ footer p {
 footer p:last-child {
   margin: 0;
 }
-.footer-portfolio{
+
+.footer-portfolio {
   margin: 16px 0 0;
 }
-.footer-portfolio a{
+
+.footer-portfolio a {
   color: #222;
   font-weight: 600;
   text-decoration: none;
 }
 
-.home-cta{
+.home-cta {
   padding: 60px 20px;
   text-align: center;
   background-color: #222;
   color: #fff;
 }
-.home-cta-title{
+
+.home-cta-title {
   font-size: 32px;
   margin: 0 0 12px;
 }
-.home-cta-text{
+
+.home-cta-text {
   max-width: 600px;
   margin: 0 auto 28px;
   line-height: 1.6;
 }
-.home-cta-link{
+
+.home-cta-link {
   display: inline-block;
   padding: 12px 24px;
   background-color: #fff;
@@ -526,6 +533,35 @@ footer p:last-child {
   border-radius: 6px;
   text-decoration: none;
   font-weight: 600;
+}
+
+
+/* ==========
+  TABLETS
+=========== */
+
+@media (max-width: 768px) {
+
+  .products-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .featured-products-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .why-dani-co-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .products-section {
+    padding: 36px 16px;
+  }
+
+  .home-cta {
+    padding: 50px 20px;
+  }
+
 }
 
 
@@ -578,11 +614,8 @@ footer p:last-child {
 
   .cart-item {
     display: grid;
-
     grid-template-columns: 1fr;
-
     gap: 16px;
-
     padding: 18px;
   }
 
@@ -609,29 +642,21 @@ footer p:last-child {
   .cart-subtotal {
     grid-column: 1;
     grid-row: auto;
-
     text-align: right;
-
     margin-top: -4px;
   }
 
   .cart-controls {
     grid-column: 1;
-
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
     width: 100%;
   }
 
   .quantity-controls {
     display: flex;
-
     align-items: center;
-
     gap: 8px;
   }
 
@@ -651,93 +676,84 @@ footer p:last-child {
   .cart-total {
     font-size: 20px;
   }
-  
+
+
   /* =========================
-   MOBILE FEATURED PRODUCTS
+     MOBILE FEATURED PRODUCTS
   ========================= */
-  
+
   .featured-products {
     padding: 32px 16px;
   }
-  
+
   .featured-products-title {
     font-size: 28px;
   }
-  
+
   .featured-products-text {
     margin-bottom: 24px;
   }
-  
+
   .featured-products-container {
     grid-template-columns: 1fr;
     gap: 16px;
   }
-  
+
   .featured-product-image {
     height: 240px;
   }
-  
+
   .featured-product-name {
     font-size: 20px;
   }
-  
+
   .featured-product-link {
     display: block;
     text-align: center;
   }
 
+
   /* =========================
-   MOBILE WHY DANI & CO
+     MOBILE WHY DANI & CO
   ========================= */
-  
+
   .why-dani-co {
     padding: 40px 16px;
   }
-  
+
   .why-dani-co-title {
     font-size: 28px;
   }
-  
+
   .why-dani-co-text {
     margin-bottom: 24px;
   }
-  
+
   .why-dani-co-container {
     grid-template-columns: 1fr;
     gap: 16px;
   }
-  
+
   .why-dani-co-item {
     padding: 20px;
   }
 
+
   /* ========
         FOOTER
-   ============ */
-  footer{
+  ============ */
+
+  footer {
     padding: 28px 16px;
     font-size: 13px;
   }
-  footer p{
+
+  footer p {
     line-height: 1.6;
   }
-  .footer-portfolio{
+
+  .footer-portfolio {
     margin: 16px 0 0;
-  }
-  
-}
-
-/* ==========
-  TABLETS
-=========== */
-@media (max-width: 768px) {
-
-  .products-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .featured-products-container {
-  grid-template-columns: repeat(2, 1fr);
   }
 
 }
